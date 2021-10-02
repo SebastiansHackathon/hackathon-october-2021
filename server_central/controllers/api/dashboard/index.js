@@ -11,12 +11,13 @@ router.get('/display/:display_id', function (req, res) {
     db.collection('displays').findOne({ id: req.params.display_id }, { projection: { history: 0 } }, function (err, result) {
         if (err) throw err;
 
-        
+
 
         console.log(result);
 
         var mocked_data = {
             url_webcam: "https://www.unterstell.it/webcam/unterstell3.jpg",
+            place_webcam: "Unterstell",
             meteo: {
                 "smetadata": {
                     "name_de": "Bozen Marconistraße-Dantestraße",

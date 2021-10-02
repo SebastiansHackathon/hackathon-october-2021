@@ -4,5 +4,5 @@ const
 
 ioClient.on("update", (msg) => {
     console.log("received", msg)
-    ioClient.emit("client-update", {current_media:"video", timestamp: Date.now(), pir_status: msg.sensor.status, id: "aaa-0002"});
+    ioClient.emit("client-update", { current_media: "video", timestamp: Date.now(), pir_status: msg.sensor.status, id: "aaa-0002" });
 });

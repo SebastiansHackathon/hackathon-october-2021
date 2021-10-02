@@ -10,12 +10,13 @@ module.exports =  function (socket) {
 
     // pir update
     notifier.on("pir-update", function(data){           
+        console.log("weee")
         socket.to(socket.handshake.query.sensorId).emit("update", data);
     })
 
     // client update
     socket.on("client-update", function(data){      
-        console.log("client-update", data);
+        console.log("client-update");
         
         //update of the client video and status
         db.collection('displays').updateOne({ id:data.id }, { $addToSet: { history: data } }, function (err, result) {
@@ -27,6 +28,7 @@ module.exports =  function (socket) {
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
+        socket.leave(socket.handshake.query.sensorId);
     });
 
 }

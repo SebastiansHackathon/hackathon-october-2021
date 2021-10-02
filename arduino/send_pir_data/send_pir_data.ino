@@ -15,7 +15,7 @@ unsigned long lastTime = 0;
 // Set timer to 5 seconds (5000)
 unsigned long timerDelay = 5000;
 
-int pirPin = 25;
+int pirPin = 14;
 
 void setup() {
   Serial.begin(115200);
@@ -68,7 +68,6 @@ void loop() {
 }
 
 int readPir(){
-  int test = 1;
-  return test;
-  //return digitalRead(pirPin);
+  Serial.println(digitalRead(pirPin));
+  return digitalRead(pirPin);
 }
