@@ -8,20 +8,25 @@ router.get('/display/:display_id', function (req, res) {
 
     console.log(req.params.display_id);
 
-    db.collection('displays').findOne({ id: req.params.display_id } , function (err, result) {
+    db.collection('displays').findOne({ id: req.params.display_id }, { projection: { history: 0 } }, function (err, result) {
         if (err) throw err;
+
+        
 
         console.log(result);
 
-        delete result.history;
-
         var mocked_data = {
-            url_webcam: "",
+            url_webcam: "https://www.unterstell.it/webcam/unterstell3.jpg",
             meteo: {
-                temperature: "",
-                humidity: "",
-                pressure: "",
-                wind_speed: "",
+                "smetadata": {
+                    "name_de": "Bozen Marconistraße-Dantestraße",
+                    "name_en": "Bozen Marconistraße-Dantestraße",
+                    "name_it": "Bolzano via Marconi-via Dante"
+                },
+                temperature: "25.3",
+                humidity: "30%",
+                pressure: "20",
+                wind_speed: "0.4",
             }
         }
 
@@ -35,6 +40,16 @@ router.get('/display/:display_id', function (req, res) {
     });
 
 })
+
+router.get('/statistics/:display_id', function (req, res) {
+
+    db.collection('displays').find({ id: req.params.display_id }, { projection: { history: 1 } }).toArray(function (err, result) {
+        console.log(result)
+
+        res.send(result);
+    });
+
+});
 
 router.post('/display', function (req, res) {
 
