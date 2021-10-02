@@ -9,10 +9,15 @@ var io = require('socket.io')(http);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/", require("./controllers"));
+var mongodbutil = require('./utils/mongo');
+mongodbutil.connectToServer(function (err) {
 
-io.on('connection', require("./websocket"));
+    app.use("/", require("./controllers"));
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
+    io.on('connection', require("./websocket"));
+
+    http.listen(3000, function () {
+        console.log('listening on *:3000');
+    });
+
 });
