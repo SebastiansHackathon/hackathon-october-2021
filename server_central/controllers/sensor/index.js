@@ -7,7 +7,7 @@ router.post('/update', (request, response) => {
 
     console.log(request.body);
 
-    notifier.emit("update", {"sensor": request.body});
+    notifier.emit("pir-update", {"sensor": request.body});
 
     response.send("Success");
 });
